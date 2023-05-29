@@ -1,0 +1,603 @@
+//Alunos: Edmilson Ronaldy, Matheus Pereira e Samuel 
+programa{
+funcao inicio()
+{
+	//declaração de variavel
+	cadeia nome
+	real deposito,cc=0.0,saque,tp=0.0,tc,cp=0.0,saldo,resg
+	inteiro op=10,ntitular,dveri1=0,op1,op2=0,op3=5,op4=0,op5,op10=10,op11,op12=0,dveri2=1,op13,op14=1,op20,op50,agencia
+	//entrada de dados menu
+	faca{
+		escreva("=============== BANCO ETE ==============="+"\n")
+				escreva("|                                       |"+"\n")
+				escreva("| Escolha uma opção:                    |"+"\n")
+				escreva("| 1. Abrir Conta corrente               |"+"\n")
+				escreva("| 2. Saque                              |"+"\n")
+				escreva("| 3. Depósito                           |"+"\n")
+				escreva("| 4. Consultar Saldo                    |"+"\n")
+				escreva("| 5. Sair                              |"+"\n")
+				escreva("========================================="+"\n")
+				leia(op)
+				escolha(op){
+					//abertura de conta
+					caso 1:
+					//o banco pede ao usuario o nome e as informações da conta
+					escreva("digite o nome completo do titular: ")
+					leia(nome)
+					escreva("digite o numero da agencia ")
+            			leia(agencia)
+            			escreva("digite o numero da conta corrente ")
+            			leia(ntitular)
+						escreva("digito verificador: ",dveri1)
+						
+            			escreva("\ndeseja realisar deposito inicial? 1-sim / 2-não ")
+            			leia(op1)
+            			//saida de dados abertura da conta
+            			se(op1==1){
+            				escreva("digite o valor do deposito: R$")
+              				leia(deposito)
+              				/*após requisitar ao usuario o valor do deposito é verificado se o deposito é valido e entra em loop 
+              				 até que seja colocdo um valor possivel
+              				*/
+			  				enquanto(deposito<=0.0){
+			  					escreva("não é possível depositar esse valor.\ndigite o valor do depósito: R$")
+			  					leia(deposito)
+			  					se(deposito<=0){
+			  						escreva("não é possível depositar esse valor.\ndeseja cancelar o depósito? digite 1-sim/2-não")
+			  						leia(op)
+			  						se(op==1){
+			  							
+			  							op10=1
+			  							deposito=0.0
+			  							pare
+			  						}
+			  						se(op==2){
+			  							escreva("digite o valor do depósito: R$")
+			  							leia(deposito)
+			  						}
+			  					}
+			  				}
+              				cc=deposito+cc
+              				op=1
+              				//após depositar ou não ele perguta se deseja criar conta poupança e determina o digito verificador
+						escreva ("deseja criar automaticamente conta poupança? 1-sim 2-não ")
+        					leia(op3)
+        					se(op3==1){
+        						cp=0.0
+							escreva("digito verificador: ",dveri2,"\n")
+							//se houver dinheiro na poupança vai perguntar se deseja aplicar na poupança e se sim vai receber um valor que obrigatoriamente deve ser >R$0 e menor ou igual ao dinheiro na conta corrente
+          					se(cc>0){
+          						enquanto(op4==0){
+          							escreva("deseja aplicar na poupança? 1-sim / 2-não ")
+              							leia(op5)
+              							se(op5==1){
+              								escreva("digite a quantidade de dinheiro que deseja transferir pra conta poupança :R$")
+                							leia(tp)
+                							se(tp>cc){
+                								escreva("saldo na conta corrente insuficiente\n")
+                							}
+                							se(tp<cc e tp>0.0){
+                								//sai do primeiro enquanto e vai pro enquanto de menu completo
+                								cp=tp
+			                  					cc=cc-tp
+			                  					op4=2
+			                  					op3=1
+			                  					op10=1
+			                  					op4=1
+			                  					pare
+                							}
+              							}
+              							se(op5==2){
+              								escreva("ok")
+              								op10=1
+              								op4=1
+              								pare
+              								
+              							}
+          						}
+          					}
+		  					se(cc<=0){
+		  						escreva("o usuário ",nome,"não executou depósito na conta corrente, portanto não será possível aplicar na poupança\n")
+		  						pare
+		  					}
+        					}
+        					//se não for criada a conta poupança ele sai do primeiro enquanto e entra no que pode criar conta poupança
+        					se(op3==2){
+        						escreva("ok, não será criada a conta poupança\n")
+        						op10=1
+        						pare	
+        					}
+            			}
+            			se(op1==2){
+            				escreva("não será executado o deposito\n")
+            				escreva ("deseja criar automaticamente conta poupança? 1-sim 2-não ")
+        					leia(op3)
+        					se(op3==1){
+        						cp=0.0
+                                	escreva("digito verificador: ",dveri2,"\n")
+							escreva("o usuário ",nome," não executou depósito na conta corrente, portanto não será possível aplicar na polpança\n")
+							op10=1
+          					se(cc>0){
+          						enquanto(op4==0){
+          							escreva("deseja aplicar na poupança? 1-sim / 2-não ")
+              							leia(op5)
+              							se(op5==1){
+              								escreva("digite a quantidade de dinheiro que deseja transferir pra conta poupança :R$")
+                							leia(tp)
+                							se(tp>cc){
+                								escreva("saldo na conta corrente insuficiente")
+                							}
+                							se(tp<cc){
+                								cp=tp
+			                  					cc=cc-tp
+			                  					op4=2
+			                  					op3=1
+			                  					op10=1
+			                  					op4=1
+			                  					pare
+                							}
+              							}
+              							se(op5==2){
+              								escreva("ok")
+              								op10=1
+              								op4=1
+              								pare
+              								
+              							}
+          						}
+          					}
+        					}
+        					se(op3==2){
+        						escreva("ok, não será criada a conta poupança\n")
+        						op10=1
+        						pare	
+        					}
+            				
+            			}
+						pare
+					//como não foi criada conta corrente o menu volta até que seja criado a conta corrente
+					caso 2:
+					escreva(" você não tem conta crie uma primeiro\n")		
+					op10=10
+					pare
+					caso 3:
+					escreva("você não tem conta crie uma primeiro\n")
+					op10=10
+					pare
+					caso 4:
+					escreva("você não tem conta crie uma primeiro\n")
+					op10=10
+					pare
+					caso 5:
+					escreva("saindo do banco...")
+					op10=1
+					pare
+					caso contrario:
+					//se colocar qualquer opção diferente a opção não é valida e volta para o menu
+					escreva("opção inválida!\n")
+					pare
+				}
+
+
+		
+	}enquanto(op10==10)
+	//se não for feita conta poupança entra nesse menu
+	se(op3==2){
+		//inicializa valor da variavel op10, para entrar no enquanto
+		op10=10
+		faca{
+			escreva("=============== BANCO ETE ==============="+"\n")
+				escreva("|                                       |"+"\n")
+				escreva("| Escolha uma opção:                    |"+"\n")
+				escreva("| 1. Abrir Conta poupança               |"+"\n")
+				escreva("| 2. Saque                              |"+"\n")
+				escreva("| 3. Depósito                           |"+"\n")
+				escreva("| 4. Consultar Saldo total              |"+"\n")
+				escreva("| 5. exibir conta corrente              |"+"\n")
+				escreva("| 6. Sair                              |"+"\n")
+				escreva("========================================="+"\n")
+				leia(op11)
+				escolha(op11){
+					caso 1:
+					//cria a conta poupança e determina o digito verificador e sai do enquanto e entra no enquanto completo
+					se(op11==1){
+					cp=0.0
+                    		escreva("digito verificador: ",dveri2,"\n")
+					op10=1
+					op3=1
+					pare
+					}
+					pare
+					caso 2:
+					//saque da conta corrente se não possuir dinheiro volta pro menu
+					se(op11==2){
+					op12=0
+					se(cc==0.0){
+						escreva("você não possuí dinheiro para sacar, execute um resgate ou deposite dinheiro na conta corrente\n")
+						pare
+					}
+					//se possuir dinheiro vai perguntar o valor do saque, se for um valor que o usuario tem vai sacar senão pergunta se quer cancelar o saque até ser completamente executada
+					//saque negativo ou 0 não é possivel
+					se(cc>0.0){
+					escreva("digite o valor do saque: R$")
+      				leia(saque)
+      				se(saque>cc e cc!=0.0){
+      					escreva("saldo na conta corrente insuficiente\n")
+      					enquanto(op12==0 e saque>cc){
+      						escreva("digite o valor do saque: R$")
+      						leia(saque)
+      						se(saque>cc){
+      							escreva("saldo na conta corrente insuficiente, seu saldo na conta corrente é de: R$",cc,"\ndeseja cancelar o saque? digite 1-sim / 2-não")
+      							leia(op)
+      							se(op==1){
+      								op12=1
+      								pare
+      							}
+      							senao se(op==2){
+      								escreva("continue...")
+      							}
+      						}
+      						se(saque<cc){
+      							cc=cc-saque	
+      							op12=1
+      							pare
+      						}
+	  						senao se(cc==0.0){
+	  							escreva("você não possui dinheiro para sacar, execute um resgate ou deposite dinheiro na conta corrente")
+	  							op12=1
+	  							pare	
+      						}
+      						se(saque<=0.0){
+      							escreva("não é possivel sacar um valor negativo ou nulo!\n")
+								pare
+      						}
+      					}
+      				}
+      				se(saque<cc e saque>0){
+      					//atualiza o valor da conta corrente subtraindo do saque
+      					cc=cc-saque
+      					
+      					pare
+      				}
+	  				se(saque<=0.0){
+	  					escreva("não é possível sacar um valor negativo ou nulo!\n")
+	  					pare
+	  				}
+					}
+					}
+					pare
+					//deposito, se o deposito for maior que R$0,0 é efetuado, se for menor vai entrar em loop até cancelar a oper~ção ou dizer um valor valido
+					caso 3:
+					//o se dentro do caso é pra não ocorrer erros de finalizar uma operação e entrar sem querer e efetuar o caso 
+					se(op11==3){
+					escreva("digite o valor do depósito: R$")
+					leia(deposito)
+			  			se(deposito>0.0){
+			  				cc=deposito+cc
+              			    pare
+			  			}
+			  			enquanto(deposito<=0.0){
+			  				escreva("o valor do depósito deve ser maior que R$0.0, deseja cancelar o depósito? digite 1-sim/ 2-não")
+			  				leia(op13)
+			  				se(op13==1){
+			  					pare
+			  				}
+			  				se(op13==2){
+			  					escreva("digite o valor do depósito: R$")
+			  					leia(deposito)
+			  					se(deposito>0.0){
+			  						cc=deposito+cc
+			  					    pare
+			  				}
+			  			}
+			  			}
+					}
+					pare
+
+					caso 4:
+					//mostra o saldo completo, como não tem conta poupança mostra apenas a corrente
+					se(op11==4){
+					saldo=cc
+					escreva("saldo= \nconta corrente: R$",cc,"\nsaldo total: R$",saldo,"\n")
+					pare
+					}
+					pare
+					caso 5:
+					//mostra todas as informações da conta corrente
+					se(op11==5){
+						escreva("saldo conta corrente: R$",cc,"\nnome titular: ",nome,"\nnumero da agencia: ",agencia,"\nnumero da conta corrente: ",ntitular,"\ndigito verificador: ",dveri1,"\n")                      
+						pare
+					}
+					pare
+					caso 6:
+					//sai do banco
+					se(op11==6){
+					op10=1
+					pare
+					}
+					pare
+					caso contrario:
+					//se colocar qualquer opção diferente a opção não é valida e volta para o menu
+					escreva("opção inválida!\n")
+					pare
+				}
+		}enquanto(op10==10)
+	}
+	//se for criada conta poupança vai entrar no ultimo faça enquanto que é a versão final do banco
+	se(op3==1){
+		//inicializa valor da variavel op10, para entrar no enquanto
+		op10=10
+		faca{
+			escreva("=============== BANCO ETE ==============="+"\n")
+				escreva("|                                       |"+"\n")
+				escreva("| Escolha uma opção:                    |"+"\n")
+				escreva("| 1. Saque                              |"+"\n")
+				escreva("| 2. Depósito                           |"+"\n")
+				escreva("| 3. Consultar Saldo total              |"+"\n")
+				escreva("| 4. aplicar na poupança                |"+"\n")
+				escreva("| 5. exibir conta corrente              |"+"\n")
+				escreva("| 6. exibir conta poupança              |"+"\n")
+				escreva("| 7. resgate                            |"+"\n")
+				escreva("| 8. Sair                              |"+"\n")
+				escreva("========================================="+"\n")
+				leia(op50)
+				escolha(op50){
+					caso 1:
+					//saque da conta corrente se não possuir dinheiro volta pro menu
+					se(op50==1){
+					op12=0
+					se(cc==0.0){
+						escreva("você não possuí dinheiro para sacar, execute um resgate ou deposite dinheiro na conta corrente\n")
+						pare
+					}
+					//se tiver dinheiro na conta corrente vai solicitar o valor do saque se for >que o dinheiro na conta corrente ele pede um valor possivel
+					se(cc>0.0){
+					escreva("digite o valor do saque:")
+      				leia(saque)
+      				se(saque>cc e cc!=0.0){
+      					escreva("saldo na conta corrente insuficiente")
+      					enquanto(op12==0 e saque>cc){
+      						escreva("digite o valor do saque:")
+      						leia(saque)
+      						se(saque>cc){
+      							//entra no loop até cancelar o saque ou colocar um valor valido
+      							escreva("saldo na conta corrente insuficiente, seu saldo na conta corrente é de: R$",cc," deseja cancelar o saque? digite 1-sim / 2-não")
+      							leia(op)
+      							se(op==1){
+      								//se cancelar o saque sai do enquanto e volta pro menu
+      								op12=1
+      								pare
+      							}
+      							senao se(op==2){
+      								escreva("continue...")
+      							}
+      						}
+      						se(saque<cc){
+      							cc=cc-saque
+      							
+      							op12=1
+      							pare
+      						}
+	  						senao se(cc==0.0){
+	  							escreva("você não possui dinheiro para sacar, execute um resgate ou deposite dinheiro na conta corrente")
+	  							op12=1
+	  							pare
+      							
+      						}
+      						se(saque<0.0){
+      							escreva("não é possivel sacar um valor negativo")
+								pare
+      						}
+      					}
+      				}
+      				se(saque<cc){
+      					//efetua o calculo do que sobra com a retirada do saque
+      					cc=cc-saque
+      					
+      					pare
+      				}
+	  				se(saque<0.0){
+	  					escreva("não é possível sacar um valor negativo")
+	  					pare
+	  				}
+					}
+					}
+					pare
+					caso 2:
+					//deposito, se o deposito for maior que R$0,0 é efetuado, se for menor vai entrar em loop até cancelar a operação ou dizer um valor valido
+					se(op50==2){
+					escreva("digite o valor do deposito: R$")
+              			leia(deposito)
+			  			se(deposito>0.0){
+			  				cc=deposito+cc
+              			    pare
+			  			}
+			  			enquanto(deposito<=0.0){
+			  				escreva("o valor do depósito deve ser maior que R$0.0, deseja cancelar o depósito? digite 1-sim/ 2-não")
+			  				leia(op13)
+			  				se(op13==1){
+			  					pare
+			  				}
+			  				se(op13==2){
+			  					escreva("digite o valor do depósito: R$")
+			  					leia(deposito)
+			  					se(deposito>0.0){
+			  						cc=deposito+cc
+			  					    pare
+			  				}
+			  			}
+			  			}
+					}
+					pare
+
+
+					caso 3:
+					//mostra o saldo na conta corrente, na poupança e mostra o saldo total que é a soma das duas contas
+					se(op50==3){
+					saldo=cp+cc
+					escreva("saldo= \n conta corrente: R$",cc,"\n conta poupança: R$",cp,"\n saldo total: R$",saldo,"\n")
+					pare
+					}
+					pare
+
+
+					caso 4:
+					//se não houver dinheiro na conta corrente não é possivel fazer a transferencia e volta para o menu
+					se(op50==4){
+					se(cc<=0.0){
+						escreva("o usuário ",nome," não possui saldo na sua conta corrente para realizar essa aplicação na poupança\n")
+						pare
+					}
+					//se houver dinheiro solicita o valor da transferencei, se for maior que o dinheiro na conta corrente entra em loop até cancelar ou colocar um valor possivel
+					escreva("digite o valor que deseja aplicar na poupança: R$")
+					leia(tp)
+					se(tp<=0.0){
+						escreva("não é possível aplicar um valor negativo ou nulo na poupança!\n")
+						pare
+					}
+					se(tp>cc){
+						escreva("saldo insuficiente na conta corrente!\n")
+						escreva("tente novamente com um valor aceitavel, seu saldo na conta corrente é de R$",cc,"\ndigite um valor: R$")
+						leia(tp)
+						se(tp<cc e tp>0.0){
+							cc=cc-tp
+							cp=tp+cp
+							escreva("transferência concluida!\n")
+							pare
+						}
+						enquanto(tp>cc){
+							escreva("saldo insuficiente na conta corrente!\no usuário ",nome," possui em sua conta corrente: R$",cc)
+							escreva("deseja cancelar a transferencia? digite 1-sim/2-não")
+							leia(op13)
+							se(op13==1){
+								pare
+							}
+							se(op13==2){
+								escreva("tente novamente com um valor aceitavel, seu saldo na conta corrente é de R$",cc,"\n digite o valor que deseja aplicar na poupança: R$")
+								leia(tp)
+								se(tp<=cc e tp>0.0){
+									cc=cc-tp
+									cp=tp+cp
+									escreva("transferência concluida!")
+									pare
+								}
+								se(tp<=0.0){
+									escreva("não é possível aplicar um valor negativo ou nulo na poupança!")
+									pare
+								}
+							}
+							
+						}
+					}se(tp<=cc e tp>0.0){
+						//se o valor da transferencia for menor ou igual ao valor cotido na conta corrente e o valor da transferencia for maior que 0 é executada a operação
+						cc=cc-tp
+						cp=tp+cp
+						escreva("transferência concluida!\n")
+						pare
+					}
+					}
+					pare
+					caso 5:
+					//mostra todas as informações da conta corrente
+					se(op50==5){
+					escreva("saldo conta corrente: R$",cc,"\nnome titular: ",nome,"\nnumero da agencia: ",agencia,"\nnumero da conta corrente: ",ntitular,"\ndigito verificador: ",dveri1,"\n")                      
+					pare
+					}
+					pare
+
+
+					caso 6:
+					//mostra todas as informações da conta poupança
+					se(op50==6){
+					escreva("saldo conta poupança: R$",cp,"\nnome titular: ",nome,"\nnumero da agencia: ",agencia,"\nnumero da conta poupança: ",ntitular,"\ndigito verificador: ",dveri2,"\n")     
+					pare
+					}
+					pare
+					caso 7:
+					se(op50==7){
+						//se o dinheiro na conta poupança for igual a R$0.0 não será feito o resgate e voltará para o menu
+					se(cp==0.0){
+						escreva("o usuário ",nome," não possui dinheiro na conta poupança, está impossibilitado de realizar o resgate!\n")
+						pare
+					}
+					//se o valor na conta poupança for maior que R$0.0 é o banco informa a quantidade que o usuario posssui na conta poupança e solicita o valor do resgate para conta corrente
+					se(cp>0.0){
+					escreva("você têm na conta poupança: R$",cp,"\ndigite a quantidade que deseja resgatar da conta poupança para conta corrente: R$")
+					leia(resg)
+					//se o valor do resgate for R$0.0 não será executado o resgate e voltará para o menu
+					se(resg==0.0){
+						escreva("não é possível resgatar esse valor!\n")
+						pare
+					}
+					//se colocar um valor menor que R$0.0 no resgate tbm voltará para o menu
+					se(resg<0.0){
+						escreva("não é possível resgatar um valor negativo!\n")
+						pare
+					}
+					se(resg>cp){
+						//se o valor do resgate for maior que o valor contido na conta poupança vai solicitar que coloque um valor valido
+						escreva("saldo insuficiente na conta poupança, saldo na conta poupança: ",cp,"\ntente novamente com um valor possivel: R$")
+						leia(resg)
+						se(resg>cp){
+							//se colocar um valor que não seja valido denovo vai entrar no loop perguntando se deseja cancelar a operação e voltar pro menu ou continuar até colocar um valor possivel!
+							enquanto(resg>cp e op14==1){
+								escreva("deseja cancelar a transferencia? digite 1-sim / 2-não")
+								leia(op20)
+								se(op20==1){
+									escreva("transferência cancelada!\n")
+									op14=0
+									op10=10
+									pare
+								}
+								se(op20==2){
+									escreva("saldo insuficiente na conta poupança, saldo na conta poupança: ",cp,"\ntente novamente com um valor possivel: R$")
+									leia(resg)
+									se(resg<=cp e resg>0.0){
+										//executa a transferencia removendo o valor da conta poupança e adcionando na conta corrente
+										cp=cp-resg
+										cc=cc+resg
+										escreva("transferencia para conta corrente concluida!\n")
+										op14=0
+										pare
+									}
+									}
+									se(resg==0.0){
+										escreva("não é possível resgatar esse valor!")
+										pare
+									}
+									
+									}
+								}
+								se(resg<0.0){
+									escreva("não é possível resgatar um valor negativo ou nulo!\n")
+									pare
+								}
+						}
+						se(resg<=cp e resg>0.0){
+							//executa a transferência removendo o valor da conta poupança e adcionando na conta corrente
+							cp=cp-resg
+							cc=cc+resg
+							escreva("transferência para conta corrente concluida!\n")
+							pare
+						}
+					}
+					}
+					pare
+					caso 8:
+					//sai do banco
+					se(op50==8){
+					op10=1
+					pare
+					}
+					pare
+					caso contrario:
+					//se colocar qualquer opção diferente a opção não é valida e volta para o menu
+					escreva("opção inválida!\n")
+					pare
+						}
+
+					}enquanto(op10==10)	
+				}
+	}
+
+}
